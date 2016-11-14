@@ -2,7 +2,7 @@
 
 	<div class="fl-post-feed-header">
 		<h2 class="fl-post-feed-title" itemprop="headline">
-			<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+			<a href="<?php bbap_permalink($settings); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 		</h2>
 		<?php if ( ($settings->show_author || $settings->show_date || $settings->show_comments) && $settings->meta_fields_position == 'before') : ?>
 		<div class="fl-post-feed-meta">
@@ -41,7 +41,7 @@
 
 	<?php if(has_post_thumbnail() && $settings->show_image) : ?>
 	<div class="fl-post-feed-image">
-		<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+		<a href="<?php bbap_permalink($settings); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
 			<?php the_post_thumbnail($settings->image_size, array('itemprop' => 'image')); ?>
 		</a>
 	</div>
@@ -64,7 +64,7 @@
 		?>
 
 		<?php if($settings->show_more_link) : ?>
-		<a class="fl-post-feed-more" href="<?php if ( trim($settings->more_link_url) == '') the_permalink(); else echo esc_url( $settings->more_link_url ); ?>" title="<?php the_title_attribute(); ?>"><?php echo $settings->more_link_text; ?></a>
+		<a class="fl-post-feed-more" href="<?php if ( trim($settings->more_link_url) == '') bbap_permalink($settings); else echo esc_url( $settings->more_link_url ); ?>" title="<?php the_title_attribute(); ?>"><?php echo $settings->more_link_text; ?></a>
 		<?php endif; ?>
 
         <?php if ( ($settings->show_author || $settings->show_date || $settings->show_comments) && $settings->meta_fields_position == 'after') : ?>
@@ -106,7 +106,7 @@
 
     <?php if ($settings->cta_show == 'show') : ?>
         <div class="<?php echo $module->get_classname(); ?>">
-            <a href="<?php if ($settings->cta_type == 'url') echo $settings->cta_url; else echo my_get_field($settings->cta_custom_field); ?>" target="<?php echo $settings->link_target; ?>" class="fl-button" role="button">
+            <a href="<?php if ($settings->cta_type == 'url') echo $settings->cta_url; else echo my_get_field($settings->cta_custom_field); ?>" <?php if ($settings->cta_target == 'blank') {?> target="_blank" <?php } ?> class="fl-button" role="button">
                 <?php if ( ! empty( $settings->icon ) && ( 'before' == $settings->icon_position || ! isset( $settings->icon_position ) ) ) : ?>
                     <i class="fl-button-icon fl-button-icon-before fa <?php echo $settings->icon; ?>"></i>
                 <?php endif; ?>

@@ -1,6 +1,6 @@
 <div class="fl-post-gallery-post" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
 
-	<a class="fl-post-gallery-link" href="<?php the_permalink(); ?>" alt="<?php the_title_attribute(); ?>">
+	<a class="fl-post-gallery-link" href="<?php bbap_permalink($settings); ?>" alt="<?php the_title_attribute(); ?>">
 	
 		<?php
 		
@@ -44,7 +44,7 @@
 				<?php endif; ?>
 
                 <?php if ($settings->cta_show == 'show') : ?>
-                    <a class="fl-post-cta-button" href="<?php if ($settings->cta_type == 'url') echo $settings->cta_url; else echo my_get_field( $settings->cta_custom_field ); ?>"><?php echo $settings->cta_caption; ?></a>
+                    <a class="fl-post-cta-button" <?php if ($settings->cta_target == 'blank') {?> target="_blank" <?php } ?> href="<?php if ($settings->cta_type == 'url') echo $settings->cta_url; else echo my_get_field( $settings->cta_custom_field ); ?>"><?php echo $settings->cta_caption; ?></a>
                 <?php endif; ?>
 
             </div>

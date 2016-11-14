@@ -148,6 +148,15 @@ FLBuilder::register_module('FLAdvancedPostsModule', array(
                         'default' => '10',
                         'size' => '4'
                     ),
+                    'disable_single_post_link' => array(
+                        'type' => 'select',
+                        'label' => __('Disable Single Post Link', 'fl-builder'),
+                        'default' => 'no',
+                        'options' => array(
+                            'yes' => __('Yes', 'fl-builder'),
+                            'no' => __('No', 'fl-builder'),
+                        )
+                    )
                 )
             ),
             'grid' => array(
@@ -358,6 +367,15 @@ FLBuilder::register_module('FLAdvancedPostsModule', array(
                         'type' => 'text',
                         'label' => __( 'CTA url', 'fl-builder' ),
                         'default' => '',
+                    ),
+                    'cta_target' => array(
+                        'type' => 'select',
+                        'default' => 'self',
+                        'label' => __( 'Open In', 'fl-builder' ),
+                        'options' => array(
+                            'self' => __( 'Current Tab', 'fl-builder' ),
+                            'blank' => __( 'New Tab', 'fl-builder' ),
+                        )
                     )
                 )
             )
@@ -605,3 +623,12 @@ FLBuilder::register_module('FLAdvancedPostsModule', array(
         'file' => FL_BUILDER_DIR . 'includes/loop-settings.php',
     )
 ));
+
+function bbap_permalink( $settings )
+{
+    if ( $settings->disable_single_post_link == 'yes' ) {
+        echo 'javascript: void(0)';
+    } else {
+        the_permalink();
+    }
+}
