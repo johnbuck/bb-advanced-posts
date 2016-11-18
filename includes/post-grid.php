@@ -11,7 +11,11 @@
 	<div class="fl-post-grid-text">
 
 		<h2 class="fl-post-grid-title" itemprop="headline">
-			<a href="<?php bbap_permalink($settings); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+            <?php if ( $settings->disable_single_post_link != 'yes' ) { ?>
+                <a href="<?php bbap_permalink($settings); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+            <?php } else { ?>
+                <?php the_title(); ?>
+            <?php } ?>
 		</h2>
 
 		<?php if ( ($settings->show_author || $settings->show_date) && $settings->meta_fields_position == 'before' ) : ?>
