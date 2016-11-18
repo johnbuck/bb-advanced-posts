@@ -1,5 +1,13 @@
 <div class="fl-post-feed-post<?php if($settings->image_position == 'beside') echo ' fl-post-feed-image-beside'; if(has_post_thumbnail() && $settings->show_image) echo ' fl-post-feed-has-image'; ?>" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
 
+	<?php if(has_post_thumbnail() && $settings->show_image) : ?>
+	<div class="fl-post-feed-image">
+		<a href="<?php bbap_permalink($settings); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+			<?php the_post_thumbnail($settings->image_size, array('itemprop' => 'image')); ?>
+		</a>
+	</div>
+	<?php endif; ?>
+
 	<div class="fl-post-feed-header">
 		<h2 class="fl-post-feed-title" itemprop="headline">
             <?php if ( $settings->disable_single_post_link != 'yes' ) { ?>
@@ -43,14 +51,6 @@
 		<?php endif; ?>
 	</div>
 
-	<?php if(has_post_thumbnail() && $settings->show_image) : ?>
-	<div class="fl-post-feed-image">
-		<a href="<?php bbap_permalink($settings); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
-			<?php the_post_thumbnail($settings->image_size, array('itemprop' => 'image')); ?>
-		</a>
-	</div>
-	<?php endif; ?>
-
 	<?php if($settings->show_content || $settings->show_more_link) : ?>
 	<div class="fl-post-feed-content" itemprop="text">
 		<?php 
@@ -66,10 +66,6 @@
 		}
 		
 		?>
-
-		<?php if($settings->show_more_link) : ?>
-		<a class="fl-post-feed-more" href="<?php if ( trim($settings->more_link_url) == '') bbap_permalink($settings); else echo esc_url( $settings->more_link_url ); ?>" title="<?php the_title_attribute(); ?>"><?php echo $settings->more_link_text; ?></a>
-		<?php endif; ?>
 
         <?php if ( ($settings->show_author || $settings->show_date || $settings->show_comments) && $settings->meta_fields_position == 'after') : ?>
             <div class="fl-post-feed-meta">
@@ -121,6 +117,10 @@
             </a>
         </div>
     <?php endif; ?>
+
+    <?php if($settings->show_more_link) : ?>
+		<a class="fl-post-feed-more" href="<?php if ( trim($settings->more_link_url) == '') bbap_permalink($settings); else echo esc_url( $settings->more_link_url ); ?>" title="<?php the_title_attribute(); ?>"><?php echo $settings->more_link_text; ?></a>	
+	<?php endif; ?>
 
 	<div class="fl-clear"></div>
 </div>
